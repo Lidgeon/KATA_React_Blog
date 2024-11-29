@@ -1,0 +1,123 @@
+.form {
+  width: 938px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 6px;
+  box-shadow: 0px 4px 12px 0px #00000026;
+
+  padding: 32px;
+  margin-top: 60px;
+
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
+  text-underline-position: from-font;
+
+  .title {
+    margin-top: 16px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .label {
+    padding-top: 18px;
+    margin-bottom: 4px;
+    //border: 2px solid red;
+    font-weight: 400;
+    line-height: 22px;
+  }
+
+  @mixin input-all {
+    //display: block;
+    font-weight: 400;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    padding-left: 12px;
+  }
+
+  .input {
+    @include input-all;
+    width: 100%;
+    height: 40px;
+  }
+
+  .input-tag {
+    @include input-all;
+    width: 300px;
+    height: 40px;
+  }
+
+  .input-textarea {
+    padding: 8px;
+    @include input-all
+  }
+
+  .input-error {
+    border-color: #F5222D;
+  }
+
+  .input::placeholder, .input-textarea::placeholder {
+    color: #bfbfbf;
+  }
+
+  .error {
+    color: #F5222D;
+  }
+
+  @mixin button {
+    width: 100px;
+    font-weight: 400;
+    font-size: 18px;
+  }
+
+  .delete-button {
+    @include button;
+    color: red;
+    border-color: red;
+    height: 40px;
+  }
+
+  .add-button {
+    @include button;
+    height: 40px;
+  }
+
+  .position {
+    position: relative;
+    top: -40px; left: 436px;
+  }
+
+  .send-button {
+    width: 320px;
+    margin-top: 20px;
+  }
+
+  .button-position {
+    margin-top: -20px;
+  }
+
+  .tag {
+    display: flex;
+    gap: 17px;
+    justify-content: flex-start;
+    //border: 2px solid red;
+  }
+
+  .input-error {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+}

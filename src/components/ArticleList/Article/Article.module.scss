@@ -1,0 +1,162 @@
+.article-card {
+  width: 940px;
+  height: 140px;
+
+  background-color: white;
+
+  border-radius: 0px 5px 5px 0px;
+  box-shadow: 0px 4px 12px 0px #00000026;
+
+  padding: 16px;
+
+  &__full {
+    min-height: 810px;
+    height: unset;
+    word-break: break-word;
+    margin: 20px 0;
+    //border: 3px solid red;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-right: 12px;
+
+      .title {
+        display: flex;
+        gap: 8px;
+
+        .title-text {
+          font-size: 20px;
+          line-height: 28px;
+          text-align: left;
+          overflow-wrap: anywhere;
+
+          color: #1890ff;
+        }
+
+        .likes {
+          font-size: 12px;
+          text-align: left;
+        }
+      }
+
+      .tag-list {
+        display: flex;
+        gap: 8px;
+
+        .tag {
+          min-width: 38px;
+          border: 1px solid #00000080;
+          border-radius: 2px;
+
+          padding: 2px 6px 2px 6px;
+
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 14.52px;
+          text-align: center;
+          overflow-wrap: anywhere;
+        }
+      }
+    }
+
+    .info {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+
+      .text-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        .author-name {
+          font-size: 18px;
+          line-height: 28px;
+          text-align: left;
+          white-space: nowrap;
+          overflow-wrap: anywhere;
+        }
+
+        .date {
+          font-size: 12px;
+          text-align: left;
+          color: #00000080;
+        }
+      }
+
+      .icon {
+        width: 46px;
+        height: 46px;
+      }
+    }
+  }
+
+  .description {
+    display: flex;
+    justify-content: space-between;
+    //border: 3px solid blue;
+    &__full {
+      margin-top: 14px;
+    }
+
+    .text {
+      margin-top: 6px;
+      font-size: 12px;
+      //line-height: 22px;
+      text-align: left;
+      overflow-wrap: anywhere;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+    }
+  }
+
+  @mixin button {
+    width: 100px;
+    font-weight: 400;
+    font-size: 18px;
+  }
+
+  .delete-button {
+    @include button;
+    color: red;
+    border-color: red;
+    height: 40px;
+  }
+
+  .edit-button {
+    @include button;
+    color: #52c41a;
+    border-color: #52c41a;
+    height: 40px;
+  }
+
+  .body {
+    //border: 3px solid blue;
+    margin-top: 18px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    & ul,
+    ol {
+      padding-left: 20px;
+      margin-left: 0;
+    }
+    & h1 {
+      font-size: 20px;
+    }
+    & h2 {
+      margin-top: 8px;
+      font-size: 18px;
+    }
+  }
+}
