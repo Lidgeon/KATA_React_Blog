@@ -1,5 +1,5 @@
+import { useState } from 'react'
 import { Button, Popconfirm } from 'antd'
-//import { useDispatch } from "react-redux";
 import { HeartOutlined, HeartTwoTone } from '@ant-design/icons'
 import { format, parseISO } from 'date-fns'
 import { Link, Redirect } from 'react-router-dom'
@@ -7,7 +7,9 @@ import Markdown from 'markdown-to-jsx'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { addLike, deleteLike, deleteArticle, isEditingOn } from '../../../redux/slices/articlesSlice'
+import { SIGN_IN_ROUTE } from '../../../consts/routes'
 
+import logo from './../../../assets/icon.png'
 import classes from './Article.module.scss'
 
 const Article = ({ article, fullArticle }) => {
@@ -30,7 +32,7 @@ const Article = ({ article, fullArticle }) => {
 
   const onClickLike = () => {
     if (!isAuth) {
-      return <Redirect to="/sign-in" />
+      return <Redirect to={SIGN_IN_ROUTE} />
     } else {
       if (article?.favorited) dispatch(deleteLike(slug))
       if (!article?.favorited) dispatch(addLike(slug))
@@ -43,6 +45,12 @@ const Article = ({ article, fullArticle }) => {
 
   const confirm = () => {
     dispatch(deleteArticle(slug))
+  }
+
+  const [image, setImage] = useState(article?.author?.image)
+
+  const handleError = () => {
+    setImage(logo)
   }
 
   return (
@@ -79,7 +87,7 @@ const Article = ({ article, fullArticle }) => {
               <span className={classes['author-name']}>{article?.author.username}</span>
               <span className={classes.date}>{date}</span>
             </div>
-            <img className={classes.icon} src={article?.author.image} alt="Иконка аватарки" />
+            <img className={classes.icon} src={image} alt="Иконка аватарки" onError={handleError} />
           </div>
         </div>
         <div className={`${classes.description} ${fullArticle ? classes['description__full'] : ''}`}>

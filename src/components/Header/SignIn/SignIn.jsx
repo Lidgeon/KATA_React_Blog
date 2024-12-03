@@ -7,38 +7,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 
 import { getLogin } from '../../../redux/slices/authSlice'
+import { signInSchema } from '../../../consts/validate'
+import { SIGN_UP_ROUTE, HOME_ROUTE } from '../../../consts/routes'
 
 import 'react-toastify/dist/ReactToastify.css'
 
 import classes from './SignIn.module.scss'
-
-const schema = {
-  type: 'object',
-  properties: {
-    email: {
-      type: 'string',
-      format: 'email',
-      minLength: 6,
-      errorMessage: {
-        minLength: 'Некорректный е-мэйл',
-        format: 'Некорректный е-мэйл',
-      },
-    },
-
-    password: {
-      type: 'string',
-      format: 'password',
-      minLength: 6,
-      maxLength: 40,
-      errorMessage: {
-        minLength: 'Некорректный пароль',
-        maxLength: 'Пароль слишком длинный',
-      },
-    },
-  },
-  required: ['email', 'password'],
-  additionalProperties: false,
-}
 
 const SignIn = () => {
   const {
@@ -46,7 +20,7 @@ const SignIn = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: ajvResolver(schema, {
+    resolver: ajvResolver(signInSchema, {
       formats: fullFormats,
       $data: true,
     }),
@@ -57,7 +31,7 @@ const SignIn = () => {
   const dispatch = useDispatch()
 
   if (auth) {
-    return <Redirect to="/" />
+    return <Redirect to={HOME_ROUTE} />
   }
 
   const onSubmit = (data) => {
@@ -112,7 +86,7 @@ const SignIn = () => {
 
         <p className={classes.text}>
           Don’t have an account?{' '}
-          <Link className={classes.link} to="/sign-up">
+          <Link className={classes.link} to={SIGN_UP_ROUTE}>
             Sign Up
           </Link>
         </p>

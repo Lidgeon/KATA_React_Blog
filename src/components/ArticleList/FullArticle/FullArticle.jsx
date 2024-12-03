@@ -4,6 +4,7 @@ import { useParams, Redirect } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { getSlugArticle, deleteStatusOff } from '../../../redux/slices/articlesSlice'
+import { HOME_ROUTE } from '../../../consts/routes'
 
 import classes from './FullArticle.module.scss'
 import Article from './../Article/Article'
@@ -27,7 +28,7 @@ const FullArticle = () => {
   }, [successDeleteCurrentArticle, dispatch])
 
   if (successDeleteCurrentArticle) {
-    return <Redirect to="/" />
+    return <Redirect to={HOME_ROUTE} />
   }
 
   const article = currentArticle

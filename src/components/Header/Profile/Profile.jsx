@@ -7,55 +7,11 @@ import { Redirect } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 
 import { getUserUpdate } from '../../../redux/slices/authSlice'
+import { profileSchema } from '../../../consts/validate'
 import 'react-toastify/dist/ReactToastify.css'
+import { HOME_ROUTE } from '../../../consts/routes'
 
 import classes from './Profile.module.scss'
-
-const schema = {
-  type: 'object',
-  properties: {
-    username: {
-      type: 'string',
-      minLength: 3,
-      maxLength: 20,
-      errorMessage: {
-        minLength: 'Имя пользователя должно быть длиннее',
-        maxLength: 'Имя пользователя слишком длинное',
-      },
-    },
-
-    email: {
-      type: 'string',
-      format: 'email',
-      minLength: 6,
-      errorMessage: {
-        minLength: 'Некорректный е-мэйл',
-        format: 'Некорректный е-мэйл',
-      },
-    },
-
-    password: {
-      type: 'string',
-      format: 'password',
-      minLength: 6,
-      maxLength: 40,
-      errorMessage: {
-        minLength: 'Некорректный пароль',
-        maxLength: 'Пароль слишком длинный',
-      },
-    },
-
-    image: {
-      type: 'string',
-      format: 'url',
-      errorMessage: {
-        format: 'Некорректный url',
-      },
-    },
-  },
-  required: ['username', 'email'],
-  additionalProperties: false,
-}
 
 const Profile = () => {
   const {
@@ -63,18 +19,17 @@ const Profile = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: ajvResolver(schema, {
+    resolver: ajvResolver(profileSchema, {
       formats: fullFormats,
       $data: true,
     }),
   })
 
   const userInfo = useSelector((state) => state.authReducer.userInfo)
-  const auth = useSelector((state) => state.authReducer.isAuth)
   const dispatch = useDispatch()
 
-  if (!auth) {
-    return <Redirect to="/" />
+  if (!localStorage.getItem('token')) {
+    return <Redirect to={HOME_ROUTE} />
   }
 
   const onSubmit = (data) => {

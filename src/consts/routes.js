@@ -1,0 +1,8 @@
+export const HOME_ROUTE = '/'
+export const ARTICLES_ROUTE = '/articles'
+export const ARTICLES_SLUG_ROUTE = '/articles/:slug'
+export const ARTICLES_EDIT_ROUTE = '/articles/:slug/edit'
+export const SIGN_IN_ROUTE = '/sign-in'
+export const SIGN_UP_ROUTE = '/sign-up'
+export const PROFILE_ROUTE = '/profile'
+export const NEW_ARTICLE_ROUTE = '/new-article'

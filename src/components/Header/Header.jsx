@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { Button } from 'antd'
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { logOut } from '../../redux/slices/authSlice'
 import {
@@ -42,6 +42,15 @@ const Header = () => {
     dispatch(deleteCurrentArticle())
   }
 
+  const [image, setImage] = useState(userInfo?.image)
+
+  useEffect(() => {
+    const img = new Image()
+    img.src = userInfo?.image
+    img.onload = () => setImage(userInfo?.image)
+    img.onerror = () => setImage(logo)
+  }, [userInfo?.image])
+
   const headerView = isAuth ? (
     <>
       <Button
@@ -56,7 +65,7 @@ const Header = () => {
       <Link className={classes.link} to="/profile">
         <div className={classes.profile}>
           <p className={classes['author-name']}>{userInfo?.username}</p>
-          <img className={classes.img} src={userInfo.image ? userInfo.image : logo} alt="logo" />
+          <img className={classes.img} src={image} alt="logo" />
         </div>
       </Link>
 

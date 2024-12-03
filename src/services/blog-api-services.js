@@ -156,6 +156,8 @@ export default class BlogApiService extends Component {
 
       //console.log({ ...updateInfo });
 
+      console.log(response)
+
       if (!response.ok) {
         toast.error('Ошибка ', response.statusText)
         return

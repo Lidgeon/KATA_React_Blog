@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 
 import { createArticle, updateArticle } from '../../redux/slices/articlesSlice'
+import { HOME_ROUTE } from '../../consts/routes'
 import 'react-toastify/dist/ReactToastify.css'
 
 import classes from './NewArticle.module.scss'
@@ -41,12 +42,10 @@ const NewArticle = () => {
     name: 'tagList',
   })
 
-  const auth = useSelector((state) => state.authReducer.isAuth)
-
   const dispatch = useDispatch()
 
-  if (!auth) {
-    return <Redirect to="/" />
+  if (!localStorage.getItem('token')) {
+    return <Redirect to={HOME_ROUTE} />
   }
 
   const onSubmit = (data) => {

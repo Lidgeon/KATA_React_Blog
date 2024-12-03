@@ -7,64 +7,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 
 import { getRegistration } from '../../../redux/slices/authSlice'
+import { signUpSchema } from '../../../consts/validate'
+import { SIGN_IN_ROUTE } from '../../../consts/routes'
 
 import classes from './SignUp.module.scss'
 
 import 'react-toastify/dist/ReactToastify.css'
-
-const schema = {
-  type: 'object',
-  properties: {
-    username: {
-      type: 'string',
-      minLength: 3,
-      maxLength: 20,
-      errorMessage: {
-        minLength: 'Имя пользователя должно быть длиннее',
-        maxLength: 'Имя пользователя слишком длинное',
-      },
-    },
-
-    email: {
-      type: 'string',
-      format: 'email',
-      minLength: 6,
-      errorMessage: {
-        minLength: 'Некорректный е-мэйл',
-        format: 'Некорректный е-мэйл',
-      },
-    },
-
-    password: {
-      type: 'string',
-      format: 'password',
-      minLength: 6,
-      maxLength: 40,
-      errorMessage: {
-        minLength: 'Некорректный пароль',
-        maxLength: 'Пароль слишком длинный',
-      },
-    },
-
-    confirmPassword: {
-      type: 'string',
-      const: {
-        $data: '1/password',
-      },
-      errorMessage: {
-        const: 'Пароли должны совпадать',
-      },
-    },
-
-    agreement: {
-      type: 'boolean',
-      const: true,
-      errorMessage: 'Примите согласие об обработке данных',
-    },
-  },
-  required: ['username', 'email', 'password', 'confirmPassword', 'agreement'],
-  additionalProperties: false,
-}
 
 const SignUp = () => {
   const {
@@ -73,7 +21,7 @@ const SignUp = () => {
     control,
     formState: { errors },
   } = useForm({
-    resolver: ajvResolver(schema, {
+    resolver: ajvResolver(signUpSchema, {
       formats: fullFormats,
       $data: true,
     }),
@@ -83,7 +31,7 @@ const SignUp = () => {
   const dispatch = useDispatch()
 
   if (regSuccess) {
-    return <Redirect to="/sign-in" />
+    return <Redirect to={SIGN_IN_ROUTE} />
   }
 
   const onSubmit = (data) => {
@@ -151,7 +99,7 @@ const SignUp = () => {
         )}
 
         <label className={classes.label} htmlFor="confirmPassword">
-          Password
+          Repeat Password
         </label>
         <input
           {...register('confirmPassword')}
@@ -191,7 +139,7 @@ const SignUp = () => {
 
         <p className={classes.text}>
           Already have an account?{' '}
-          <Link className={classes.link} to="/sign-in">
+          <Link className={classes.link} to={SIGN_IN_ROUTE}>
             Sign In
           </Link>
         </p>

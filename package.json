@@ -16,7 +16,7 @@
     "antd": "^5.20.6",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
-    "inter-ui": "^4.0.2",
+    "inter-ui": "^4.1.0",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
     "markdown-to-jsx": "^7.6.2",

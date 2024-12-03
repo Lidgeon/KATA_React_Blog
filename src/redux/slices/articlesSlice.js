@@ -45,24 +45,20 @@ export const createArticle = createAsyncThunk('articles/createArticle', async (a
 })
 
 export const addLike = createAsyncThunk('articles/addLike', async (slug, { dispatch, getState }) => {
-  const currentPage = getState().articlesReducer.currentPage
-  //console.log(getState(), currentPage)
   const response = await blogapi.addLike(slug)
-  dispatch(fetchArticles(5 * currentPage - 5))
   if (getState().articlesReducer.currentArticle !== null) {
-    dispatch(getSlugArticle(slug))
+    dispatch(updateCurrentArticle({ ...response.article, favorited: true }))
   }
+  dispatch(updateArticleList({ ...response.article, favorited: true }))
   return response
 })
 
 export const deleteLike = createAsyncThunk('articles/deleteLike', async (slug, { dispatch, getState }) => {
-  const currentPage = getState().articlesReducer.currentPage
   const response = await blogapi.deleteLike(slug)
-  dispatch(fetchArticles(5 * currentPage - 5))
-  //console.log(getState().articlesReducer.currentArticle)
   if (getState().articlesReducer.currentArticle !== null) {
-    dispatch(getSlugArticle(slug))
+    dispatch(updateCurrentArticle({ ...response.article, favorited: false }))
   }
+  dispatch(updateArticleList({ ...response.article, favorited: false }))
   return response
 })
 
@@ -108,6 +104,17 @@ const articlesSlice = createSlice({
     },
     isEditingOff: (state) => {
       state.isEditing = false
+    },
+    updateArticleList: (state, action) => {
+      const update = action.payload
+      const index = state.articles.findIndex((article) => article.slug === update.slug)
+      if (index !== -1) {
+        state.articles[index] = { ...state.articles[index], ...update }
+      }
+    },
+    updateCurrentArticle: (state, action) => {
+      const update = action.payload
+      state.currentArticle = { ...state.currentArticle, ...update }
     },
   },
 
@@ -224,6 +231,8 @@ export const {
   addCurrentArticleSlug,
   isEditingOn,
   isEditingOff,
+  updateArticleList,
+  updateCurrentArticle,
 } = actions
 
 export default reducer

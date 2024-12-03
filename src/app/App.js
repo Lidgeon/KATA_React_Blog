@@ -13,6 +13,16 @@ import Profile from '../components/Header/Profile/Profile'
 import NewArticle from '../components/NewArticle/NewArticle'
 import { getUser } from '../redux/slices/authSlice'
 import { fetchArticles } from '../redux/slices/articlesSlice'
+import {
+  HOME_ROUTE,
+  ARTICLES_ROUTE,
+  ARTICLES_SLUG_ROUTE,
+  ARTICLES_EDIT_ROUTE,
+  SIGN_IN_ROUTE,
+  SIGN_UP_ROUTE,
+  PROFILE_ROUTE,
+  NEW_ARTICLE_ROUTE,
+} from '../consts/routes'
 
 import classes from './App.module.scss'
 
@@ -56,14 +66,14 @@ const App = () => {
         {notFoundStatus}
         {errorStatus}
         <Switch>
-          <Route path="/" exact render={() => content} />
-          <Route path="/articles" render={() => content} exact />
-          <Route path="/articles/:slug" component={FullArticle} exact />
-          <Route path="/articles/:slug/edit" component={NewArticle} exact />
-          <Route path="/sign-in" component={SignIn} exact />
-          <Route path="/sign-up" component={SignUp} exact />
-          <Route path="/profile" component={Profile} exact />
-          <Route path="/new-article" component={NewArticle} exact />
+          <Route path={HOME_ROUTE} exact render={() => content} />
+          <Route path={ARTICLES_ROUTE} render={() => content} exact />
+          <Route path={ARTICLES_SLUG_ROUTE} component={FullArticle} exact />
+          <Route path={ARTICLES_EDIT_ROUTE} component={NewArticle} exact />
+          <Route path={SIGN_IN_ROUTE} component={SignIn} exact />
+          <Route path={SIGN_UP_ROUTE} component={SignUp} exact />
+          <Route path={PROFILE_ROUTE} component={Profile} exact />
+          <Route path={NEW_ARTICLE_ROUTE} component={NewArticle} exact />
         </Switch>
       </section>
     </Router>
